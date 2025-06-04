@@ -9,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.10",
     "@types/express": "^5.0.1",
     "elysia": "^1.2.25",
     "express": "^5.1.0",
