@@ -5,7 +5,7 @@ import {
   generateStoryElements,
   generateCharacterStickerDescription,
   generateGamification,
-  generateIntroduction
+  generateStory
 } from "../services/ia.service";
 
 
@@ -134,7 +134,7 @@ export const testStory = async () => {
 export const startStory = async ({ body }: any) => {
   const { title, characterName,environment, theme,objetive } = body;
 
-  const story = await generateIntroduction(title, characterName,environment, theme,objetive);
+  const story = await generateStory(title, characterName,environment, theme,objetive);
 
   return {
     success: true,

@@ -6,5 +6,6 @@ export const env = {
   SUPABASE_DB_PASSWORD: process.env.SUPABASE_DB_PASSWORD || "",
   USEDEEPSEEK: process.env.USEDEEPSEEK || true,
   DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY || "",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || ""
 };
 

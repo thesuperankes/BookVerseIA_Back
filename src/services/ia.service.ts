@@ -6,7 +6,7 @@ import { env } from "../config/env";
 let openai: any;
 let model: any;
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyDkD6c8ZKabwk0l5dTUQGUqkqW5BVPTRBc" });
+const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
 if (env.USEDEEPSEEK === "true") {
   console.log("Usando DeepSeek como proveedor de IA");
@@ -68,76 +68,119 @@ export async function generateGamification(acts: string[]): Promise<string> {
   return await chatRequest("Eres un pedagogo especializado en cuentos infantiles y gamificación.", prompt);
 }
 
-export async function generateIntroduction(title: string, characterName:string,environment:string, theme:string,objetive:string): Promise<string> {
-  const prompt = `Actúa como un autor de cuentos infantiles interactivos para niños de entre 6 y 10 años. Vas a generar una historia completa estilo "elige tu propia aventura", con múltiples escenas conectadas como un árbol de decisiones.
+export async function generateStory(
+  title: string,
+  characterName: string,
+  environment: string,
+  theme: string,
+  objetive: string
+): Promise<any> {
+  const prompt = `Actúa como un autor de cuentos infantiles interactivos. Debes generar:
 
 Datos base:
-- Título de la historia: ${ title }
-- Personaje principal: ${ characterName }
-- Escenario principal: ${ environment }
-- Tema o tono: ${ theme }
-- Objetivo de la historia: ${ objetive }
+- Título: ${title}
+- Personaje principal: ${characterName} (id: 'main_character')
+- Escenario principal: ${environment} (id: 'main_environment')
+- Tema: ${theme}
+- Objetivo: ${objetive}
 
 Requisitos:
-1. Usa lenguaje simple, frases breves y tono apropiado para niños.
-2. Genera una historia ramificada en el siguiente formato:
+Todas las historias deben ser en español
+1. INCLUIR TODOS los personajes que aparecen en el array 'characters'
+2. Cada personaje debe tener id único, name y prompt
+3. Cada escena debe incluir:
+   - sceneCharacters: IDs de personajes presentes
+   - sceneEnvironment: ID del entorno
+   - imagePrompt: Descripción visual
+   - options: Solo para escenas no finales
+ 4. Nodo de inicio con introducción y 2 opciones.`;
 
-Estructura esperada:
-- Nodo de inicio con introducción y 2 opciones.
-- Cada opción lleva a una escena intermedia.
-- Cada escena intermedia lleva a un “giro” narrativo (puede usar elementos mágicos, personajes nuevos, descubrimientos, etc.)
-- Cada giro lleva a una escena final (con cierre feliz o aprendizaje).
-- Todas las escenas deben incluir texto, 2 decisiones (excepto finales), y una breve descripción visual para IA de imágenes.
-`
-
-;
-
-const response = await ai.models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
     contents: prompt,
-    config:{
+    config: {
       responseMimeType: "application/json",
-      responseSchema:{
-          type: Type.OBJECT,
-          properties: {
-            id: { type: Type.STRING },
-            title: { type: Type.STRING },
-            characterName: { type: Type.STRING },
-            setting: { type: Type.STRING },
-            theme: { type: Type.STRING },
-            scenes: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  id: { type: Type.STRING },
-                  type: { type: Type.STRING },
-                  content: { type: Type.STRING },
-                  options: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        text: { type: Type.STRING },
-                        nextSceneId: { type: Type.STRING },
-                      },
-                      required: ["text", "nextSceneId"],
-                    },
-                  },
-                  imagePrompt: { type: Type.STRING },
-                },
-                required: ["id", "type", "content", "imagePrompt"],
+      responseSchema: {
+        type: "object",
+        properties: {
+          id: { type: "string" },
+          title: { type: "string" },
+          theme: { type: "string" },
+          characters: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "string" },
+                name: { type: "string" },
+                prompt: { type: "string" },
               },
+              required: ["id", "name", "prompt"],
             },
           },
-          required: ["id", "title", "characterName", "setting", "theme", "scenes"],
-      }
-    }
+          environments: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "string" },
+                name: { type: "string" },
+                prompt: { type: "string" },
+              },
+              required: ["id", "name", "prompt"],
+            },
+          },
+          scenes: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "string" },
+                type: { type: "string" },
+                content: { type: "string" },
+                sceneCharacters: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                sceneEnvironment: { type: "string" },
+                options: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      text: { type: "string" },
+                      nextSceneId: { type: "string" },
+                    },
+                  },
+                },
+                imagePrompt: { type: "string" },
+              },
+              required: [
+                "id",
+                "type",
+                "content",
+                "sceneCharacters",
+                "sceneEnvironment",
+                "imagePrompt"
+              ],
+            },
+          },
+        },
+        required: [
+          "id",
+          "title",
+          "theme",
+          "characters",
+          "environments",
+          "scenes"
+        ],
+      },
+    },
   });
 
-
-  return JSON.parse(response.text ?? '') || "";
+  return JSON.parse(response.text ?? "{}");
 }
+
 async function chatRequest(system: string, userPrompt: string, temperature = 0.8, max_tokens = 800): Promise<string> {
   const res = await openai.chat.completions.create({
     model: model,

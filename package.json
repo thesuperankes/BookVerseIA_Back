@@ -2,6 +2,12 @@
   "name": "bookverseia",
   "module": "app.ts",
   "type": "module",
+  "scripts": {
+    "dev": "bun run src/app.ts",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
