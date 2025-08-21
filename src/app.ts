@@ -12,7 +12,7 @@ const app = new Elysia();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // o ["*"] si estás en desarrollo
+    origin: ["*"], // o ["*"] si estás en desarrollo
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   })
