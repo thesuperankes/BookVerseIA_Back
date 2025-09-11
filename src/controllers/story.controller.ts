@@ -2,39 +2,46 @@
 import type { SceneForImage } from "../models/story.model";
 import { generateStory } from "../services/ia.service";
 import { generateImagesConcurrent } from "../services/image.service";
+import Logger from "../lib/logger";
 
-/* ============================================================
- * Utilidades de logging / diagnóstico
- * ============================================================ */
+import { promises as fs } from "node:fs";
+import * as path from "node:path";
 
-type LogLevel = "info" | "warn" | "error" | "debug";
-const DEBUG_STORY =
-  String(process.env.DEBUG_STORY ?? "false").toLowerCase() === "true";
+const log = Logger.get({
+  level: process.env.NODE_ENV === "production" ? "info" : "debug",
+  toFile: true,
+  filePath: "./logs/app.log",
+  prettyConsole: true,
+  colorConsole: true,
+  baseContext: { service: "story-controller" },
+});
 
-function now() { return Date.now(); }
-function ms(dt: number) { return `${dt}ms`; }
-function snippet(text: string, len = 160) {
-  if (!text) return "";
-  const t = String(text).replace(/\s+/g, " ").trim();
-  return t.length > len ? `${t.slice(0, len)}…` : t;
+// Config de almacenamiento local
+const ASSETS_DIR = process.env.ASSETS_DIR || path.join(process.cwd(), "assets");
+const ASSETS_PUBLIC_BASE = (process.env.ASSETS_PUBLIC_BASE || "/assets").replace(/\/+$/, "");
+
+async function ensureDir(p: string) {
+  await fs.mkdir(p, { recursive: true });
 }
-function log(level: LogLevel, msg: string, meta: Record<string, any> = {}) {
-  if (!DEBUG_STORY && level === "debug") return;
-  const line = {
-    ts: new Date().toISOString(),
-    level,
-    src: "story.controller",
-    msg,
-    ...meta,
-  };
-  // eslint-disable-next-line no-console
-  console[level === "error" ? "error" : level === "warn" ? "warn" : "log"](JSON.stringify(line));
+function safeName(s: string) {
+  return String(s || "")
+    .normalize("NFKD")
+    .replace(/[^\w.-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+function buildLocalUrl(storyId: string, fileName: string) {
+  return `${ASSETS_PUBLIC_BASE}/${encodeURIComponent(storyId)}/${encodeURIComponent(fileName)}`;
+}
+async function saveBase64ToFile(dir: string, fileName: string, b64: string): Promise<string> {
+  const filePath = path.join(dir, fileName);
+  await fs.writeFile(filePath, Buffer.from(b64, "base64"));
+  return filePath;
 }
 function tryParseJSON<T = any>(raw: any): T | null {
   if (typeof raw !== "string") return raw as T;
   try { return JSON.parse(raw) as T; } catch { return null; }
 }
-
 /* ============================================================
  * Test de conexión
  * ============================================================ */
@@ -43,151 +50,125 @@ export const testStory = async () => {
   return { success: true, story: "Juancho cuando vamos a farrear?" };
 };
 
+
+
 /* ============================================================
  * startStory con trazas detalladas
  * ============================================================ */
 
+// GENERA HISTORIA + IMÁGENES y guarda localmente en assets/
 export const startStory = async ({ body }: any) => {
   const reqId = `start-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
-  const t0 = now();
+  const storyId = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  const reqLog = log.child({ reqId, storyId });
 
-  // Nota: tu payload usa "objetive" (no "objective"). Lo registramos para detectar mismatches.
   const { title, characterName, environment, theme, objetive } = body || {};
-
-  log("info", "Solicitud recibida", {
-    reqId,
+  reqLog.info("Solicitud /story/start recibida", {
     bodyPreview: { title, characterName, environment, theme, objetiveDefined: typeof objetive !== "undefined" },
+    assetsDir: ASSETS_DIR,
+    publicBase: ASSETS_PUBLIC_BASE,
   });
 
   try {
-    /* 1) Generar historia (con scenes + imagePrompt) */
-    const tStory0 = now();
-    log("info", "Generando historia", { reqId });
-
-    const storyRaw = await generateStory(title, characterName, environment, theme, objetive);
-    const storyParsed = tryParseJSON<any>(storyRaw);
-    const story = storyParsed || storyRaw;
-
-    const scenesCount = story?.scenes?.length ?? 0;
-    log("info", "Historia generada", {
-      reqId,
-      took: ms(now() - tStory0),
-      hasScenes: Boolean(story?.scenes),
-      scenesCount,
-      firstSceneId: scenesCount ? story.scenes[0]?.id : null,
+    // 1) Generar historia
+    const story = await reqLog.time("Generar historia", async () => {
+      const storyRaw = await generateStory(title, characterName, environment, theme, objetive);
+      return tryParseJSON<any>(storyRaw) || storyRaw;
     });
 
+    const scenesCount = story?.scenes?.length ?? 0;
+    reqLog.info("Historia generada", { scenesCount, firstSceneId: scenesCount ? story.scenes[0]?.id : null });
+
     if (!story?.scenes || !Array.isArray(story.scenes) || scenesCount === 0) {
-      log("error", "No se generaron escenas", { reqId, storyType: typeof storyRaw });
+      reqLog.error("No se generaron escenas");
       return { success: false, message: "No se pudieron generar escenas" };
     }
 
-    const missingPromptIds = story.scenes
-      .filter((s: any) => !s?.imagePrompt)
-      .map((s: any) => s?.id)
-      .filter(Boolean);
-
-    if (missingPromptIds.length) {
-      log("warn", "Escenas sin imagePrompt", { reqId, missingPromptIds, count: missingPromptIds.length });
-    }
-
-    /* 2) Preparar escenas para imagen */
+    // 2) Preparar prompts para imágenes
     const scenesForImage: SceneForImage[] = story.scenes
       .filter((s: any) => !!s?.imagePrompt && !!s?.id)
       .map((s: any) => ({ id: s.id, imagePrompt: s.imagePrompt }));
 
-    log("info", "Escenas preparadas para imágenes", {
-      reqId,
-      toRender: scenesForImage.length,
-      firstPromptPreview: scenesForImage[0] ? snippet(scenesForImage[0].imagePrompt, 200) : null,
-    });
-
     if (!scenesForImage.length) {
+      reqLog.warn("No hay escenas con imagePrompt");
       return { success: false, message: "Las escenas no contienen imagePrompt" };
     }
+    reqLog.info("Escenas preparadas para imágenes", { toRender: scenesForImage.length });
 
-    /* 3) Generar imágenes en concurrencia */
-    const tImg0 = now();
-    log("info", "Generando imágenes (concurrencia)", {
-      reqId,
-      count: scenesForImage.length,
-      model: "gpt-5",
-      maxConcurrency: 8,
+    // 3) Generar imágenes en concurrencia
+    const images = await reqLog.time("Generar imágenes", async () => {
+      return generateImagesConcurrent(scenesForImage, {
+        model: "gpt-5",
+        maxConcurrency: 8 as any, // ignorado por Responses API interna pero lo mantenemos por compat
+      } as any);
     });
 
-    const images = await generateImagesConcurrent(scenesForImage, {
-      model: "gpt-5",
-      // Los siguientes parámetros se ignoran si usas Responses API interna,
-      // pero los dejamos por compatibilidad con tu modelo de tipos:
-      size: "1024x768" as any,
-      maxConcurrency: 8 as any,
-      nPerScene: 1 as any,
-    } as any);
-
-    const ok = images.filter((i) => !i.error).length;
-    const fail = images.filter((i) => i.error).length;
-    const failedIds = images.filter((i) => i.error).map((i) => ({ sceneId: i.sceneId, error: i.error }));
-
-    log("info", "Imágenes generadas", {
-      reqId,
-      took: ms(now() - tImg0),
-      total: images.length,
-      ok,
-      fail,
-      failedIds,
+    const ok = images.filter((i) => !i.error);
+    const fail = images.filter((i) => i.error);
+    reqLog.info("Imágenes generadas", {
+      total: images.length, ok: ok.length, fail: fail.length,
+      failedIds: fail.map(f => ({ sceneId: f.sceneId, error: f.error })),
     });
 
-    /* 4) Mapear resultados y anexar a la historia */
-    const imagesByScene: Record<string, { b64: string; mime: string; error?: string }> = {};
-    for (const img of images) {
-      imagesByScene[img.sceneId] = {
-        b64: img.b64,
-        mime: img.mime,
-        ...(img.error ? { error: img.error } : {}),
+    // 4) Guardar localmente en assets/<storyId>/scene-*.png y devolver URLs
+    const storyDir = path.join(ASSETS_DIR, safeName(storyId));
+    await ensureDir(storyDir);
+
+    const saved = await reqLog.time("Guardar imágenes localmente", async () => {
+      return Promise.all(
+        ok.map(async (it, idx) => {
+          const fname = `scene-${safeName(it.sceneId)}-${Date.now()}-${idx}.png`;
+          const filePath = await saveBase64ToFile(storyDir, fname, it.b64);
+          const url = buildLocalUrl(storyId, fname);
+          return { sceneId: it.sceneId, url, path: filePath };
+        })
+      );
+    });
+
+    const urlByScene = new Map<string, string>(saved.map(s => [s.sceneId, s.url]));
+
+    // 5) Enriquecer escenas con URL (sin base64 en el response)
+    const scenesWithImages = story.scenes.map((s: any) => ({
+      ...s,
+      imageUrl: urlByScene.get(s.id) || null,
+      imageB64: null,
+      imageMime: urlByScene.has(s.id) ? "image/png" : null,
+      imageError: fail.find(f => f.sceneId === s.id)?.error || null,
+    }));
+
+    const imagesByScene: Record<string, { url?: string; mime?: string; error?: string }> = {};
+    for (const s of scenesWithImages) {
+      imagesByScene[s.id] = {
+        url: s.imageUrl || undefined,
+        mime: s.imageMime || undefined,
+        error: s.imageError || undefined,
       };
     }
 
-    const scenesWithImages = story.scenes.map((s: any) => ({
-      ...s,
-      imageB64: imagesByScene[s.id]?.b64 || null,
-      imageMime: imagesByScene[s.id]?.mime || null,
-      imageError: imagesByScene[s.id]?.error || null,
-    }));
-
-    const tTotal = ms(now() - t0);
-    log("info", "startStory completado", {
-      reqId,
-      took: tTotal,
+    reqLog.info("startStory completado", {
       scenes: scenesWithImages.length,
-      withImage: scenesWithImages.filter((s: any) => s.imageB64).length,
+      withUrl: scenesWithImages.filter((s: any) => s.imageUrl).length,
       withError: scenesWithImages.filter((s: any) => s.imageError).length,
+      assetsDir: ASSETS_DIR,
+      publicBase: ASSETS_PUBLIC_BASE,
     });
 
     return {
       success: true,
-      story: { ...story, scenes: scenesWithImages },
-      imagesByScene, // útil para el front
-      meta: { reqId, took: tTotal },
+      story: { ...story, id: storyId, scenes: scenesWithImages },
+      imagesByScene,
+      delivery: { mode: "urls", localDir: storyDir, publicBase: ASSETS_PUBLIC_BASE },
+      meta: { reqId },
     };
   } catch (err: any) {
-    log("error", "Fallo en startStory", {
-      reqId,
-      name: err?.name,
-      code: err?.code,
-      status: err?.status,
-      message: err?.message,
-      stack: DEBUG_STORY ? err?.stack : undefined,
+    reqLog.error("Fallo en startStory", {
+      name: err?.name, code: err?.code, status: err?.status, message: err?.message,
     });
     return {
       success: false,
       message: "Error generando historia o imágenes",
-      error: {
-        name: err?.name,
-        code: err?.code,
-        status: err?.status,
-        message: err?.message,
-      },
-      meta: { reqId, took: ms(now() - t0) },
+      error: { name: err?.name, code: err?.code, status: err?.status, message: err?.message },
+      meta: { reqId },
     };
   }
 };
