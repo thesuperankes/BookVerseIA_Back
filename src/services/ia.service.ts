@@ -1,72 +1,11 @@
 // /services/ia.service.ts
-import { OpenAI } from "openai";
 import { GoogleGenAI, Type } from "@google/genai";
 import { env } from "../config/env";
+import type { ImageGenOptions, SceneForImage, SceneImageResult } from "../models/story.model";
 
-let openai: any;
-let model: any;
+
 
 const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
-
-if (env.USEDEEPSEEK === "true") {
-  console.log("Usando DeepSeek como proveedor de IA");
-  openai = new OpenAI({
-    baseURL: 'https://api.deepseek.com',
-    apiKey: env.DEEPSEEK_API_KEY,
-  });
-  model = "deepseek-chat";
-} else {
-  console.log("Usando ChatGPT como proveedor de IA");
-  openai = new OpenAI({
-    apiKey: env.OPENAI_API_KEY,
-  });
-  model = "gpt-4o";
-}
-
-
-
-export async function generateRecommendations(sinopsis: string): Promise<string> {
-  const prompt = `Dame 6 recomendaciones clave para construir un cuento infantil basado en esta sinopsis: "${sinopsis}". Incluye tono, estilo, longitud, vocabulario y temas sensibles a evitar.`;
-
-  const res = await chatRequest("Eres un editor experto de cuentos infantiles.", prompt);
-  return res;
-}
-
-export async function generateStoryElements(sinopsis: string, recomendaciones: string): Promise<string> {
-  const prompt = `Con base en esta sinopsis: "${sinopsis}" y estas recomendaciones: "${recomendaciones}", genera:
-- Un título atractivo
-- Nombre del personaje principal
-- Descripción del personaje
-- Escenario principal
-- Conflicto central`;
-
-  return await chatRequest("Eres un escritor de cuentos infantiles.", prompt);
-}
-
-export async function generateCharacterStickerDescription(nombre: string, descripcion: string): Promise<string> {
-  const prompt = `Genera una descripción visual del personaje "${nombre}": ${descripcion}. El estilo debe ser amigable para niños y con elementos que funcionen bien como sticker.`;
-  return await chatRequest("Eres un diseñador experto en stickers infantiles.", prompt);
-}
-
-export async function generateAct2(primerActo: string): Promise<string> {
-  const prompt = `Continúa la historia a partir del siguiente primer acto: "${primerActo}". Escribe el segundo acto desarrollando el conflicto, con obstáculos para el personaje y manteniendo coherencia en tono y estilo.`;
-  return await chatRequest("Eres un escritor de cuentos infantiles.", prompt);
-}
-
-export async function generateFinalAct(segundoActo: string): Promise<string> {
-  const prompt = `Con base en el siguiente segundo acto: "${segundoActo}", escribe el desenlace del cuento resolviendo el conflicto de forma positiva y con una lección o moraleja.`;
-  return await chatRequest("Eres un escritor de cuentos infantiles.", prompt);
-}
-
-export async function generateGamification(acts: string[]): Promise<string> {
-  const fullStory = acts.join(" ");
-  const prompt = `Con base en esta historia: "${fullStory}", crea actividades gamificadas para niños:
-1. Pregunta de opción múltiple sobre el conflicto.
-2. Juego de relación personaje-acción.
-3. Actividad artística relacionada con el cuento.`;
-
-  return await chatRequest("Eres un pedagogo especializado en cuentos infantiles y gamificación.", prompt);
-}
 
 export async function generateStory(
   title: string,
@@ -75,6 +14,39 @@ export async function generateStory(
   theme: string,
   objetive: string
 ): Promise<any> {
+
+// Header estándar para consistencia visual de personajes en cada escena
+const IMAGE_PROMPT_HEADER_TEMPLATE = `
+[CHARACTER SHEET]
+{{for each character in sceneCharacters}}
+id: {{id}}
+name: {{name}}
+token: {{token}}            // identificador único estable (ej. "charTok:JAX-27")
+hair: {{color/style/length}}
+eyes: {{color/shape}}
+skin: {{tone}}
+outfit: {{top/bottom/accessories}}
+palette: {{#RRGGBB, #RRGGBB, #RRGGBB}}   // 3–6 colores clave
+silhouette: {{keywords}}                 // rasgos de forma/volumen
+style: {{cel-shaded | painterly | flat-color | watercolor}}
+proportions: {{cartoon | semi-realistic | realistic}}
+do-not-change: hair color; eye color; outfit core; proportions
+{{end}}
+
+[STYLE PRESET]
+global_style: {{tu_preset_global}}      // ej. "flat-color, líneas limpias"
+camera: 35mm, medium shot, eye-level
+lighting: soft, even
+aspect: 4:3
+
+[NEGATIVE RULES]
+no new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay
+
+[SCENE PROMPT]
+{{descripción breve de la acción, emociones, entorno}}
+`;
+
+
   const prompt = `Actúa como un autor de cuentos infantiles interactivos. Debes generar:
 
 Datos base:
@@ -85,112 +57,103 @@ Datos base:
 - Objetivo: ${objetive}
 
 Requisitos:
-Todas las historias deben ser en español
-1. INCLUIR TODOS los personajes que aparecen en el array 'characters'
-2. Cada personaje debe tener id único, name y prompt
-3. Cada escena debe incluir:
-   - sceneCharacters: IDs de personajes presentes
-   - sceneEnvironment: ID del entorno
-   - imagePrompt: Descripción visual
-   - options: Solo para escenas no finales
- 4. Nodo de inicio con introducción y 2 opciones.`;
+- Toda la historia en español.
+- Debes usar TODOS los personajes recibidos en 'characters'.
+- Cada personaje debe tener id único, name y prompt.
+- Cada escena (nodos no-finales y finales) debe incluir obligatoriamente:
+  • sceneCharacters: array de IDs de personajes presentes
+  • sceneEnvironment: ID del entorno
+  • imagePrompt: cadena de texto que COMIENZA con un header estandarizado de consistencia,
+    seguido del prompt normal de la escena.
+    > Debes usar EXACTAMENTE este formato de cabecera antes del prompt de escena:
+${IMAGE_PROMPT_HEADER_TEMPLATE}
+ 
+Reglas para imagePrompt:
+- El header SIEMPRE va primero. No lo omitas.
+- Incluye SOLO las fichas de los personajes presentes en sceneCharacters.
+- Respeta la paleta y las restricciones (do-not-change) en TODAS las escenas.
+- Usa el aspect 4:3 y cámara/iluminación del [STYLE PRESET] salvo que se indique otra cosa.
+- Tras el header, redacta el [SCENE PROMPT] en 2–4 líneas máximo, concreto y sin narrativa redundante.
+
+ `;
 
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
-      responseSchema: {
+      // Fragmento del responseSchema (Gemini) o equivalente si usas OpenAI JSON mode
+responseSchema: {
+  type: "object",
+  properties: {
+    id: { type: "string" },
+    title: { type: "string" },
+    synopsis: { type: "string" },
+    characters: {
+      type: "array",
+      items: {
         type: "object",
         properties: {
           id: { type: "string" },
-          title: { type: "string" },
-          theme: { type: "string" },
-          characters: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: { type: "string" },
-                name: { type: "string" },
-                prompt: { type: "string" },
-              },
-              required: ["id", "name", "prompt"],
-            },
-          },
-          environments: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: { type: "string" },
-                name: { type: "string" },
-                prompt: { type: "string" },
-              },
-              required: ["id", "name", "prompt"],
-            },
-          },
-          scenes: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: { type: "string" },
-                type: { type: "string" },
-                content: { type: "string" },
-                sceneCharacters: {
-                  type: "array",
-                  items: { type: "string" },
-                },
-                sceneEnvironment: { type: "string" },
-                options: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      text: { type: "string" },
-                      nextSceneId: { type: "string" },
-                    },
-                  },
-                },
-                imagePrompt: { type: "string" },
-              },
-              required: [
-                "id",
-                "type",
-                "content",
-                "sceneCharacters",
-                "sceneEnvironment",
-                "imagePrompt"
-              ],
-            },
-          },
+          name: { type: "string" },
+          prompt: { type: "string" },
+          token: { type: "string" }, // opcional pero recomendado para consistencia
         },
-        required: [
-          "id",
-          "title",
-          "theme",
-          "characters",
-          "environments",
-          "scenes"
-        ],
-      },
+        required: ["id", "name", "prompt"]
+      }
+    },
+    environments: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "string" },
+          name: { type: "string" },
+          description: { type: "string" },
+        },
+        required: ["id", "name"]
+      }
+    },
+    scenes: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "string" },
+          type: { type: "string" }, // "start" | "normal" | "ending"
+          content: { type: "string" },
+          sceneCharacters: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 1
+          },
+          sceneEnvironment: { type: "string" },
+          imagePrompt: {
+            type: "string",
+            minLength: 120,   // fuerza header + prompt; ajusta a tu gusto
+            description: "Debe iniciar con el header estandarizado y luego el [SCENE PROMPT]."
+          },
+          options: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                text: { type: "string" },
+                targetSceneId: { type: "string" }
+              },
+              required: ["text", "targetSceneId"]
+            }
+          }
+        },
+        required: ["id", "type", "content", "sceneCharacters", "sceneEnvironment", "imagePrompt"]
+      }
+    }
+  },
+  required: ["id", "title", "synopsis", "characters", "environments", "scenes"]
+}
+,
     },
   });
 
   return JSON.parse(response.text ?? "{}");
-}
-
-async function chatRequest(system: string, userPrompt: string, temperature = 0.8, max_tokens = 800): Promise<string> {
-  const res = await openai.chat.completions.create({
-    model: model,
-    messages: [
-      { role: "system", content: system },
-      { role: "user", content: userPrompt },
-    ],
-    temperature,
-    max_tokens,
-  });
-
-  return res.choices[0]?.message?.content || "";
 }

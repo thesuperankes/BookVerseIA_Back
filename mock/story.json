@@ -1,0 +1,197 @@
+{
+    "success": true,
+    "story": {
+        "id": "mfenxvsi-6gvi",
+        "title": "Ojos en el Bosque",
+        "synopsis": "Martín se adentra en el bosque, buscando respuestas a un misterio que involucra a sus amigos y una traición inminente.",
+        "characters": [
+            {
+                "id": "main_character",
+                "name": "Martín",
+                "prompt": "Un niño curioso y valiente, dispuesto a descubrir la verdad.",
+                "token": "charTok:MARTIN-01"
+            },
+            {
+                "id": "elena",
+                "name": "Elena",
+                "prompt": "La mejor amiga de Martín, astuta y leal, pero guarda un secreto.",
+                "token": "charTok:ELENA-02"
+            },
+            {
+                "id": "javier",
+                "name": "Javier",
+                "prompt": "Un chico reservado y observador, siempre atento a los detalles.",
+                "token": "charTok:JAVIER-03"
+            }
+        ],
+        "environments": [
+            {
+                "id": "main_environment",
+                "name": "El Bosque",
+                "description": "Un bosque antiguo y misterioso, lleno de secretos ocultos entre los árboles."
+            }
+        ],
+        "scenes": [
+            {
+                "id": "inicio",
+                "type": "node",
+                "content": "Martín se adentra en el bosque, siguiendo un rastro de pistas que lo llevan hacia el claro. El ambiente es denso y silencioso, pero siente que alguien lo observa.",
+                "sceneCharacters": [
+                    "main_character"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín camina cautelosamente por el bosque, con una expresión de incertidumbre en su rostro. Los árboles proyectan sombras largas y misteriosas a su alrededor. El ambiente es tranquilo pero inquietante.",
+                "options": [
+                    {
+                        "text": "Seguir el rastro hacia el claro",
+                        "targetSceneId": "claro"
+                    }
+                ],
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-inicio-1757550218789-0.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            },
+            {
+                "id": "claro",
+                "type": "node",
+                "content": "Martín llega al claro y encuentra a Elena y Javier discutiendo acaloradamente. La tensión en el aire es palpable. Martín se acerca cautelosamente.",
+                "sceneCharacters": [
+                    "main_character",
+                    "elena",
+                    "javier"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nElena y Javier se enfrentan en el claro, gesticulando con frustración. Martín observa la escena desde la distancia, sintiendo la tensión entre ellos. El sol se filtra entre los árboles, iluminando la escena de manera dramática.",
+                "options": [
+                    {
+                        "text": "Intervenir en la discusión",
+                        "targetSceneId": "intervencion"
+                    },
+                    {
+                        "text": "Escuchar a escondidas",
+                        "targetSceneId": "escucha"
+                    }
+                ],
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-claro-1757550218808-1.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            },
+            {
+                "id": "intervencion",
+                "type": "node",
+                "content": "Martín interrumpe la discusión. Elena revela que Javier planeaba traicionarlos a ambos. Javier lo niega, pero sus ojos lo delatan.",
+                "sceneCharacters": [
+                    "main_character",
+                    "elena",
+                    "javier"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín se interpone entre Elena y Javier, con una expresión seria. Elena señala a Javier con acusación, mientras que Javier evita la mirada de Martín. La tensión es palpable, con el descubrimiento de la traición en el aire.",
+                "options": [
+                    {
+                        "text": "Creer a Elena",
+                        "targetSceneId": "final_elena"
+                    },
+                    {
+                        "text": "Creer a Javier",
+                        "targetSceneId": "final_javier"
+                    }
+                ],
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-intervencion-1757550218833-2.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            },
+            {
+                "id": "escucha",
+                "type": "node",
+                "content": "Martín escucha a escondidas y descubre que Javier planea traicionar a Elena para obtener algo valioso que ella posee.",
+                "sceneCharacters": [
+                    "main_character",
+                    "elena",
+                    "javier"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín se esconde tras un árbol, escuchando la conversación de Elena y Javier. La expresión de Javier es siniestra mientras habla en voz baja, revelando sus planes secretos. Elena parece ajena a la traición inminente.",
+                "options": [
+                    {
+                        "text": "Revelar la traición a Elena",
+                        "targetSceneId": "final_elena"
+                    }
+                ],
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-escucha-1757550218847-3.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            },
+            {
+                "id": "final_elena",
+                "type": "final",
+                "content": "Martín y Elena confrontan a Javier, quien confiesa su traición. La amistad se rompe, pero Martín y Elena permanecen unidos, aprendiendo la importancia de la lealtad.",
+                "sceneCharacters": [
+                    "main_character",
+                    "elena",
+                    "javier"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín y Elena se enfrentan a Javier, quien tiene una expresión de culpa. Los tres están en el claro del bosque, con un ambiente de tristeza y desilusión. Martín y Elena se miran con determinación, sabiendo que su amistad es más fuerte que la traición.",
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-final_elena-1757550218865-4.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            },
+            {
+                "id": "final_javier",
+                "type": "final",
+                "content": "Martín decide creer a Javier y se aleja de Elena. Sin embargo, pronto descubre que Javier lo ha estado utilizando para sus propios fines. Martín se da cuenta de su error y lamenta su decisión, aprendiendo una dura lección sobre la confianza.",
+                "sceneCharacters": [
+                    "main_character",
+                    "elena",
+                    "javier"
+                ],
+                "sceneEnvironment": "main_environment",
+                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín y Javier caminan juntos por el bosque, alejándose de Elena, quien los mira con tristeza. Martín tiene una expresión confiada, pero Javier sonríe de manera sospechosa. El sol se oculta tras los árboles, creando una atmósfera sombría y desoladora.",
+                "imageUrl": "/assets/mfenxvsi-6gvi/scene-final_javier-1757550218875-5.png",
+                "imageB64": null,
+                "imageMime": "image/png",
+                "imageError": null
+            }
+        ]
+    },
+    "imagesByScene": {
+        "inicio": {
+            "url": "/assets/mfenxvsi-6gvi/scene-inicio-1757550218789-0.png",
+            "mime": "image/png"
+        },
+        "claro": {
+            "url": "/assets/mfenxvsi-6gvi/scene-claro-1757550218808-1.png",
+            "mime": "image/png"
+        },
+        "intervencion": {
+            "url": "/assets/mfenxvsi-6gvi/scene-intervencion-1757550218833-2.png",
+            "mime": "image/png"
+        },
+        "escucha": {
+            "url": "/assets/mfenxvsi-6gvi/scene-escucha-1757550218847-3.png",
+            "mime": "image/png"
+        },
+        "final_elena": {
+            "url": "/assets/mfenxvsi-6gvi/scene-final_elena-1757550218865-4.png",
+            "mime": "image/png"
+        },
+        "final_javier": {
+            "url": "/assets/mfenxvsi-6gvi/scene-final_javier-1757550218875-5.png",
+            "mime": "image/png"
+        }
+    },
+    "delivery": {
+        "mode": "urls",
+        "localDir": "C:\\Users\\Droshi\\Documents\\Proyectos\\U\\BookVerseIA_Back\\assets\\mfenxvsi-6gvi",
+        "publicBase": "/assets"
+    },
+    "meta": {
+        "reqId": "start-mfenxvsh-ui171g"
+    }
+}
