@@ -40,7 +40,7 @@ export async function getChildThemes(userId: string) {
   if (error) return { data: null, error };
 
   const themes = data?.child_themes
-    ? data.child_themes.split(',').map(t => t.trim())
+    ? data.child_themes.split(',').map((t:any) => t.trim())
     : [];
 
   return { data: themes, error: null };
@@ -57,7 +57,7 @@ export async function setChildThemes(userId: string, themesArray: Array<string>)
     .single();
 
   const result = data?.child_themes
-    ? data.child_themes.split(',').map(t => t.trim())
+    ? data.child_themes.split(',').map((t:any) => t.trim())
     : [];
 
   return { data: result, error };

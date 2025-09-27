@@ -113,11 +113,6 @@ function hasHeaderTemplate(imgPrompt: string): boolean {
     imgPrompt.includes("[SCENE PROMPT]")
   );
 }
-
-/* ============================================================
- * Generadores de UNA imagen (Responses API + Fallback Images API)
- * ============================================================ */
-
 /** Responses API + tool image_generation (flujo recomendado) */
 async function generateOneWithResponses(prompt: string, model: "gpt-5" | "gpt-4o", ctx: Record<string, any>) {
   const t0 = now();
@@ -126,7 +121,7 @@ async function generateOneWithResponses(prompt: string, model: "gpt-5" | "gpt-4o
   const response = await openai.responses.create({
     model,
     input: prompt,
-    tools: [{ type: "image_generation" }],
+    tools: [{ type: "image_generation" } as any],
   });
 
   const dt = now() - t0;
@@ -192,7 +187,7 @@ async function generateOneWithImagesAPI(
 export async function generateImagesConcurrent(
   scenes: SceneForImage[],
   opts: ImageGenOptions = {}
-): Promise<SceneImageResult[]> {
+): Promise<any[]> {
   const {
     model = "gpt-5", // primario para Responses API
     maxConcurrency = 8,
