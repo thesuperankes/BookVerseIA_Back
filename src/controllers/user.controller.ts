@@ -9,7 +9,7 @@ export const getUsers = async () => {
 };
 
 export const registerUser = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signUp({ email, password, options:{ emailRedirectTo:'http://localhost:5173/auth/confirm' } });
+  const { data, error } = await supabase.auth.signUp({ email, password, options:{ emailRedirectTo:'https://bookverseia.tsagames.site/auth/confirm' } });
 
   console.log(data,error);
 
@@ -31,7 +31,7 @@ export const logoutUser = async () => {
 
 export const sendPasswordResetEmail = async (email: string) => {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'http://localhost:5173/',
+    redirectTo: 'https://bookverseia.tsagames.site/',
   });
   if (error) return { success: false, error: error.message };
   return { success: true, data };
