@@ -2,7 +2,7 @@
   "name": "bookverseia",
   "module": "app.ts",
   "type": "module",
-  "main":"src/app.ts",
+  "main": "src/app.ts",
   "scripts": {
     "dev": "bun run src/app.ts",
     "build": "tsc -b && vite build",
@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@vitejs/plugin-react": "^5.0.3",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
