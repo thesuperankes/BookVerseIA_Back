@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "dev": "bun run src/app.ts",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.json", 
     "lint": "eslint .",
     "preview": "vite preview"
   },
