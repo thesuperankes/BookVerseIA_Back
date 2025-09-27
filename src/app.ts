@@ -17,7 +17,7 @@ const ASSETS_DIR = process.env.ASSETS_DIR || path.join(process.cwd(), "assets");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // o ["*"] si estás en desarrollo
+    origin: ["http://localhost:5173","https://bookverseia.tsagames.site"], // o ["*"] si estás en desarrollo
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type",'authorization'],
 
