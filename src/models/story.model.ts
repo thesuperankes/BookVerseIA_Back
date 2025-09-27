@@ -16,3 +16,24 @@ export type SceneImageResult = {
   mime: "image/png";
   error?: string;
 };
+
+export type StoryRow = {
+  id: string;
+  title: string | null;
+  synopsis: string | null;
+  scenes?: any;            // jsonb
+  images_by_scene?: any;   // jsonb
+};
+
+export type StoryCard = {
+  id: string;
+  title: string;
+  synopsis: string;
+  cover_image: string | null;
+};
+
+export type SingleStoryRow = {
+  id: string;
+  owner_id: string;
+  raw_payload: any;
+};

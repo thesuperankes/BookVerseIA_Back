@@ -1,9 +1,9 @@
 {
     "success": true,
     "story": {
-        "id": "mfenxvsi-6gvi",
-        "title": "Ojos en el Bosque",
-        "synopsis": "Martín se adentra en el bosque, buscando respuestas a un misterio que involucra a sus amigos y una traición inminente.",
+        "id": "mfxbxd8f-hpxt",
+        "title": "El renacimiento de un rey",
+        "synopsis": "Donkey, un burro común, descubre que es la reencarnación de un valiente rey medieval. A través de pruebas y aventuras, debe aprender a aceptar su destino y usar su valentía para proteger a los inocentes.",
         "characters": [
             {
                 "id": "main_character",
@@ -25,173 +25,62 @@
             }
         ],
         "environments": [
-            {
-                "id": "main_environment",
-                "name": "El Bosque",
-                "description": "Un bosque antiguo y misterioso, lleno de secretos ocultos entre los árboles."
-            }
-        ],
-        "scenes": [
-            {
-                "id": "inicio",
-                "type": "node",
-                "content": "Martín se adentra en el bosque, siguiendo un rastro de pistas que lo llevan hacia el claro. El ambiente es denso y silencioso, pero siente que alguien lo observa.",
-                "sceneCharacters": [
-                    "main_character"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín camina cautelosamente por el bosque, con una expresión de incertidumbre en su rostro. Los árboles proyectan sombras largas y misteriosas a su alrededor. El ambiente es tranquilo pero inquietante.",
-                "options": [
-                    {
-                        "text": "Seguir el rastro hacia el claro",
-                        "targetSceneId": "claro"
-                    }
-                ],
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-inicio-1757550218789-0.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            },
-            {
-                "id": "claro",
-                "type": "node",
-                "content": "Martín llega al claro y encuentra a Elena y Javier discutiendo acaloradamente. La tensión en el aire es palpable. Martín se acerca cautelosamente.",
-                "sceneCharacters": [
-                    "main_character",
-                    "elena",
-                    "javier"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nElena y Javier se enfrentan en el claro, gesticulando con frustración. Martín observa la escena desde la distancia, sintiendo la tensión entre ellos. El sol se filtra entre los árboles, iluminando la escena de manera dramática.",
-                "options": [
-                    {
-                        "text": "Intervenir en la discusión",
-                        "targetSceneId": "intervencion"
-                    },
-                    {
-                        "text": "Escuchar a escondidas",
-                        "targetSceneId": "escucha"
-                    }
-                ],
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-claro-1757550218808-1.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            },
-            {
-                "id": "intervencion",
-                "type": "node",
-                "content": "Martín interrumpe la discusión. Elena revela que Javier planeaba traicionarlos a ambos. Javier lo niega, pero sus ojos lo delatan.",
-                "sceneCharacters": [
-                    "main_character",
-                    "elena",
-                    "javier"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín se interpone entre Elena y Javier, con una expresión seria. Elena señala a Javier con acusación, mientras que Javier evita la mirada de Martín. La tensión es palpable, con el descubrimiento de la traición en el aire.",
-                "options": [
-                    {
-                        "text": "Creer a Elena",
-                        "targetSceneId": "final_elena"
-                    },
-                    {
-                        "text": "Creer a Javier",
-                        "targetSceneId": "final_javier"
-                    }
-                ],
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-intervencion-1757550218833-2.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            },
-            {
-                "id": "escucha",
-                "type": "node",
-                "content": "Martín escucha a escondidas y descubre que Javier planea traicionar a Elena para obtener algo valioso que ella posee.",
-                "sceneCharacters": [
-                    "main_character",
-                    "elena",
-                    "javier"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín se esconde tras un árbol, escuchando la conversación de Elena y Javier. La expresión de Javier es siniestra mientras habla en voz baja, revelando sus planes secretos. Elena parece ajena a la traición inminente.",
-                "options": [
-                    {
-                        "text": "Revelar la traición a Elena",
-                        "targetSceneId": "final_elena"
-                    }
-                ],
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-escucha-1757550218847-3.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            },
-            {
-                "id": "final_elena",
-                "type": "final",
-                "content": "Martín y Elena confrontan a Javier, quien confiesa su traición. La amistad se rompe, pero Martín y Elena permanecen unidos, aprendiendo la importancia de la lealtad.",
-                "sceneCharacters": [
-                    "main_character",
-                    "elena",
-                    "javier"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín y Elena se enfrentan a Javier, quien tiene una expresión de culpa. Los tres están en el claro del bosque, con un ambiente de tristeza y desilusión. Martín y Elena se miran con determinación, sabiendo que su amistad es más fuerte que la traición.",
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-final_elena-1757550218865-4.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            },
-            {
-                "id": "final_javier",
-                "type": "final",
-                "content": "Martín decide creer a Javier y se aleja de Elena. Sin embargo, pronto descubre que Javier lo ha estado utilizando para sus propios fines. Martín se da cuenta de su error y lamenta su decisión, aprendiendo una dura lección sobre la confianza.",
-                "sceneCharacters": [
-                    "main_character",
-                    "elena",
-                    "javier"
-                ],
-                "sceneEnvironment": "main_environment",
-                "imagePrompt": "[CHARACTER SHEET]\nid: main_character\nname: Martín\ntoken: charTok:MARTIN-01\nhair: castaño, corto\neyes: marrones, redondos\nskin: clara\noutfit: camiseta a rayas, pantalones cortos marrones, zapatillas\npalette: #7851A9, #C3AED6, #301934\nsilhouette: delgada, infantil\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: elena\nname: Elena\ntoken: charTok:ELENA-02\nhair: rubio, largo, ondulado\neyes: azules, almendrados\nskin: clara\noutfit: vestido floreado, sandalias\npalette: #F0E68C, #ADD8E6, #800080\nsilhouette: esbelta, elegante\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: javier\nname: Javier\ntoken: charTok:JAVIER-03\nhair: negro, corto, liso\neyes: negros, rasgados\nskin: morena\noutfit: camisa verde, pantalones vaqueros, botas\npalette: #006400, #4682B4, #2F4F4F\nsilhouette: robusta, fuerte\nstyle: watercolor\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: watercolor, trazos suaves\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMartín y Javier caminan juntos por el bosque, alejándose de Elena, quien los mira con tristeza. Martín tiene una expresión confiada, pero Javier sonríe de manera sospechosa. El sol se oculta tras los árboles, creando una atmósfera sombría y desoladora.",
-                "imageUrl": "/assets/mfenxvsi-6gvi/scene-final_javier-1757550218875-5.png",
-                "imageB64": null,
-                "imageMime": "image/png",
-                "imageError": null
-            }
-        ]
+  {
+    "id": "main_environment",
+    "name": "La edad media",
+    "description": "Castillos, bosques encantados y pueblos pintorescos."
+  }
+],
+        "scenes": [{"id":"scene_1","type":"linear","content":"Donkey vivía una vida tranquila en una granja medieval. Un día, mientras araba el campo, encontró una extraña joya brillante.","options":[{"text":"Continue","targetSceneId":"scene_2"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_1-1758678943486-0.png","imageMime":"image/png","miniGames":[{"id":"mg1","type":"ZoomGuess","ageMax":10,"ageMin":6,"points":5,"question":"¿Qué objeto brillante encontró Donkey?","sentence":"joya"}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey arando un campo con un arado de madera. El cielo es azul y soleado. Encuentra una joya brillante enterrada.","sceneCharacters":["main_character"],"sceneEnvironment":"main_environment"},{"id":"scene_2","type":"linear","content":"Al tocar la joya, Donkey tuvo una visión de un valiente rey luchando contra un dragón. Se sintió inundado de recuerdos que no eran suyos.","options":[{"text":"Continue","targetSceneId":"scene_3"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_2-1758678943507-1.png","imageMime":"image/png","miniGames":[{"id":"mg2","type":"TrueFalse","ageMax":12,"ageMin":8,"points":5,"target":{"r":0.1,"x":0.5,"y":0.5,"label":"Donkey"},"statement":"Donkey tuvo una visión de un rey."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey sosteniendo la joya brillante, con una expresión de sorpresa. Un aura mágica rodea la joya.","sceneCharacters":["main_character"],"sceneEnvironment":"main_environment"},{"id":"scene_3","type":"decision","content":"Un anciano mago, Merlín, apareció de repente. Le reveló a Donkey que él era la reencarnación del Rey Arturo, destinado a proteger el reino.","options":[{"text":"¿Aceptar su destino?","targetSceneId":"scene_4"},{"text":"¿Negarse y seguir siendo un burro?","targetSceneId":"scene_8"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_3-1758678943519-2.png","imageMime":"image/png","miniGames":[{"id":"mg3","type":"FillInTheBlank","ageMax":13,"ageMin":9,"points":7,"target":{"r":0.1,"x":0.2,"y":0.8,"label":"Merlín"},"sentence":"Merlín le reveló a Donkey que era la ________ del Rey Arturo."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: wizard\nname: Merlín\ntoken: charTok:MERL-02\nhair: white, long, beard\neyes: blue, wise\nskin: pale\noutfit: blue robes with stars\npalette: #0D47A1, #E0F2F1, #795548\nsilhouette: tall, thin\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMerlín explicándole a Donkey su destino. Donkey parece confundido. Están en un claro del bosque.","sceneCharacters":["main_character","wizard"],"sceneEnvironment":"main_environment"},{"id":"scene_4","type":"linear","content":"Donkey, aunque asustado, decide aceptar su destino. Merlín le informa que debe encontrar la espada Excalibur para reclamar su título.","options":[{"text":"Continue","targetSceneId":"scene_5"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_4-1758678943534-3.png","imageMime":"image/png","miniGames":[{"id":"mg4","type":"MultipleChoice","ageMax":14,"ageMin":10,"points":8,"target":{"r":0.1,"x":0.5,"y":0.5,"label":"Donkey"},"question":"¿Qué debe encontrar Donkey para reclamar su título?","sentence":"reencarnacion"}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: wizard\nname: Merlín\ntoken: charTok:MERL-02\nhair: white, long, beard\neyes: blue, wise\nskin: pale\noutfit: blue robes with stars\npalette: #0D47A1, #E0F2F1, #795548\nsilhouette: tall, thin\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nMerlín le explica a Donkey sobre la espada Excalibur. Donkey escucha atentamente. ","sceneCharacters":["main_character","wizard"],"sceneEnvironment":"main_environment"},{"id":"scene_5","type":"decision","content":"En su búsqueda, Donkey se encuentra con Fafnir, un dragón guardián. Fafnir le pone a prueba para ver si es digno de Excalibur.","options":[{"text":"¿Aceptar la prueba?","targetSceneId":"scene_6"},{"text":"¿Intentar evitar la prueba?","targetSceneId":"scene_9"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_5-1758678943556-4.png","imageMime":"image/png","miniGames":[{"id":"mg5","type":"ImageHotspot","ageMax":11,"ageMin":7,"points":6,"target":{"r":0.05,"x":0.7,"y":0.3,"label":"Dragon"}}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: dragon\nname: Fafnir\ntoken: charTok:FAFN-03\nhair: none\neyes: yellow, piercing\nskin: green scales\noutfit: none\npalette: #388E3C, #43A047, #66BB6A\nsilhouette: large, imposing\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey frente a Fafnir el dragón. Fafnir lo mira con desconfianza.  Están frente a una cueva.","sceneCharacters":["main_character","dragon"],"sceneEnvironment":"main_environment"},{"id":"scene_6","type":"linear","content":"Donkey demuestra su valentía y bondad al superar la prueba de Fafnir. El dragón, impresionado, le revela la ubicación de Excalibur.","options":[{"text":"Continue","targetSceneId":"scene_7"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_6-1758678943565-5.png","imageMime":"image/png","miniGames":[{"id":"mg6","type":"TrueFalse","ageMax":12,"ageMin":8,"points":5,"target":{"r":0.1,"x":0.5,"y":0.5,"label":"Donkey"},"statement":"Fafnir estaba impresionado con la bondad de Donkey."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: dragon\nname: Fafnir\ntoken: charTok:FAFN-03\nhair: none\neyes: yellow, piercing\nskin: green scales\noutfit: none\npalette: #388E3C, #43A047, #66BB6A\nsilhouette: large, imposing\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey superando la prueba del dragón. Fafnir sonríe aprobatoriamente. ","sceneCharacters":["main_character","dragon"],"sceneEnvironment":"main_environment"},{"id":"scene_7","type":"linear","content":"Donkey encuentra a Excalibur en una piedra. Al tocarla, se transforma en un valiente caballero. La Princesa Gwendolyn llega para pedir su ayuda.","options":[{"text":"Continue","targetSceneId":"scene_10"}],"imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_7-1758678943573-6.png","imageMime":"image/png","miniGames":[{"id":"mg7","type":"MultipleChoice","ageMax":14,"ageMin":10,"points":8,"target":{"r":0.1,"x":0.5,"y":0.5,"label":"Donkey"},"question":"¿Quién llega a pedir ayuda a Donkey?","sentence":"La espada Excalibur."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: full plate armor\npalette: #B0BEC5, #607D8B, #90A4AE\nsilhouette: strong, heroic\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: princess\nname: Gwendolyn\ntoken: charTok:GWEN-04\nhair: blonde, long, braided\neyes: green, kind\nskin: fair\noutfit: green dress with gold trim\npalette: #4CAF50, #D4E157, #FFEB3B\nsilhouette: elegant, graceful\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey transformado en caballero, sosteniendo Excalibur. La princesa Gwendolyn lo mira con esperanza.","sceneCharacters":["main_character","princess"],"sceneEnvironment":"main_environment"},{"id":"scene_8","type":"ending","content":"Donkey decide seguir siendo un burro. Aunque su vida es sencilla, siempre recuerda la visión del rey y la joya mágica. Vive una vida plena ayudando a los demás en la granja.","imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_8-1758678943581-7.png","imageMime":"image/png","miniGames":[{"id":"mg8","type":"FillInTheBlank","ageMax":13,"ageMin":9,"points":7,"target":{"r":0.1,"x":0.2,"y":0.8,"label":"Merlín"},"sentence":"Donkey vive una vida plena ayudando a los _____ en la granja."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey arando un campo, con una sonrisa en su rostro. El sol brilla en un día tranquilo.","sceneCharacters":["main_character"],"sceneEnvironment":"main_environment"},{"id":"scene_9","type":"ending","content":"Donkey intenta evitar la prueba, pero Fafnir le explica que la valentía no es evitar el miedo, sino enfrentarlo. Donkey regresa a su granja, habiendo aprendido una valiosa lección.","imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_9-1758678943590-8.png","imageMime":"image/png","miniGames":[{"id":"mg9","type":"TrueFalse","ageMax":12,"ageMin":8,"points":5,"target":{"r":0.1,"x":0.5,"y":0.5,"label":"Donkey"},"statement":"Fafnir le dijo a Donkey que la valentía era evitar el miedo."}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: simple brown harness\npalette: #795548, #9E9E9E, #A1887F\nsilhouette: stout, rounded\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: dragon\nname: Fafnir\ntoken: charTok:FAFN-03\nhair: none\neyes: yellow, piercing\nskin: green scales\noutfit: none\npalette: #388E3C, #43A047, #66BB6A\nsilhouette: large, imposing\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nDonkey escuchando a Fafnir. Donkey parece triste. ","sceneCharacters":["main_character","dragon"],"sceneEnvironment":"main_environment"},{"id":"scene_10","type":"ending","content":"Donkey, ahora Sir Donkey, ayuda a la Princesa Gwendolyn a proteger su reino. Descubre que la verdadera valentía no está en la espada, sino en el corazón. Juntos, crean un reino justo y próspero.","imageB64":null,"imageUrl":"https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_10-1758678943597-9.png","imageMime":"image/png","miniGames":[{"id":"mg10","type":"ZoomGuess","ageMax":10,"ageMin":6,"points":5,"question":"¿Qué es más importante que la espada, según Donkey?","sentence":"corazón"}],"imageError":null,"imagePrompt":"[CHARACTER SHEET]\nid: main_character\nname: Donkey\ntoken: charTok:DONK-01\nhair: brown mane\neyes: brown, large\nskin: grey\noutfit: full plate armor\npalette: #B0BEC5, #607D8B, #90A4AE\nsilhouette: strong, heroic\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\nid: princess\nname: Gwendolyn\ntoken: charTok:GWEN-04\nhair: blonde, long, braided\neyes: green, kind\nskin: fair\noutfit: green dress with gold trim\npalette: #4CAF50, #D4E157, #FFEB3B\nsilhouette: elegant, graceful\nstyle: cel-shaded\nproportions: cartoon\ndo-not-change: hair color; eye color; outfit core; proportions\n\n[STYLE PRESET]\nglobal_style: cel-shaded, líneas limpias\ncamera: 35mm, medium shot, eye-level\nlighting: soft, even\naspect: 4:3\n\n[NEGATIVE RULES]\nno new accessories; no hairstyle changes; no color drift; no extra characters; no text overlay\n\n[SCENE PROMPT]\nSir Donkey y la princesa Gwendolyn juntos, sonriendo. El reino próspero en el fondo.","sceneCharacters":["main_character","princess"],"sceneEnvironment":"main_environment"}]
     },
     "imagesByScene": {
-        "inicio": {
-            "url": "/assets/mfenxvsi-6gvi/scene-inicio-1757550218789-0.png",
-            "mime": "image/png"
-        },
-        "claro": {
-            "url": "/assets/mfenxvsi-6gvi/scene-claro-1757550218808-1.png",
-            "mime": "image/png"
-        },
-        "intervencion": {
-            "url": "/assets/mfenxvsi-6gvi/scene-intervencion-1757550218833-2.png",
-            "mime": "image/png"
-        },
-        "escucha": {
-            "url": "/assets/mfenxvsi-6gvi/scene-escucha-1757550218847-3.png",
-            "mime": "image/png"
-        },
-        "final_elena": {
-            "url": "/assets/mfenxvsi-6gvi/scene-final_elena-1757550218865-4.png",
-            "mime": "image/png"
-        },
-        "final_javier": {
-            "url": "/assets/mfenxvsi-6gvi/scene-final_javier-1757550218875-5.png",
-            "mime": "image/png"
-        }
-    },
+  "scene_1": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_1-1758678943486-0.png",
+    "mime": "image/png"
+  },
+  "scene_2": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_2-1758678943507-1.png",
+    "mime": "image/png"
+  },
+  "scene_3": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_3-1758678943519-2.png",
+    "mime": "image/png"
+  },
+  "scene_4": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_4-1758678943534-3.png",
+    "mime": "image/png"
+  },
+  "scene_5": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_5-1758678943556-4.png",
+    "mime": "image/png"
+  },
+  "scene_6": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_6-1758678943565-5.png",
+    "mime": "image/png"
+  },
+  "scene_7": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_7-1758678943573-6.png",
+    "mime": "image/png"
+  },
+  "scene_8": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_8-1758678943581-7.png",
+    "mime": "image/png"
+  },
+  "scene_9": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_9-1758678943590-8.png",
+    "mime": "image/png"
+  },
+  "scene_10": {
+    "url": "https://aambxolxibomymcuydbr.supabase.co/storage/v1/object/public/stories-images/stories/mfxbxd8f-hpxt/scene-scene_10-1758678943597-9.png",
+    "mime": "image/png"
+  }
+},
     "delivery": {
-        "mode": "urls",
-        "localDir": "C:\\Users\\Droshi\\Documents\\Proyectos\\U\\BookVerseIA_Back\\assets\\mfenxvsi-6gvi",
-        "publicBase": "/assets"
-    },
+  "mode": "urls",
+  "localDir": "C:\\Users\\Droshi\\Documents\\Proyectos\\U\\BookVerseIA_Back\\assets\\mfxbxd8f-hpxt",
+  "publicBase": "/assets"
+},
     "meta": {
-        "reqId": "start-mfenxvsh-ui171g"
-    }
+  "reqId": "start-mfxbxd8f-lvqy2b"
+}
 }

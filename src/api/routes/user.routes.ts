@@ -17,6 +17,8 @@ import type {
   ResetPasswordBody,
   UpdatePasswordBody,
 } from "../../types/user.types";
+import { secure } from "../../middleware/secure";
+
 
 const userRoutes = new Elysia();
 
@@ -55,8 +57,12 @@ userRoutes.group("/users", (app) =>
       console.log(body);
       const { new_password, token_hash } = body;
       console.log(new_password);
-      return await updatePasswordEmail(new_password,token_hash);
+      return await updatePasswordEmail(new_password, token_hash);
     })
+    .get('/me', secure(async ({ user, sb }) => {
+      const { data: settings } = await sb.from('settings').select('*').eq('user_id', user.id).maybeSingle();
+      return { success: true, user, settings };
+    }))
 );
 
 export default userRoutes;
