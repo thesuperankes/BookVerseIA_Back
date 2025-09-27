@@ -2,6 +2,7 @@
   "name": "bookverseia",
   "module": "app.ts",
   "type": "module",
+  "main":"src/app.ts",
   "scripts": {
     "dev": "bun run src/app.ts",
     "build": "tsc -b && vite build",
