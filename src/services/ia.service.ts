@@ -5,7 +5,7 @@ import type { ImageGenOptions, SceneForImage, SceneImageResult } from "../models
 import { getAge } from "../lib/userHelper";
 
 
-
+const modelToUse = env.MODEL_GEMINI || "gemini-2.5-flash";
 const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
 export async function generateStory(
@@ -143,7 +143,7 @@ Devuelve TODO en JSON EXACTAMENTE con el schema indicado.`;
 console.log(prompt)
 
   const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
+    model: modelToUse,
     contents: prompt,
     config: {
       responseMimeType: "application/json",
